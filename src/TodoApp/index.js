@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { addTask } from "./api";
+import { useEffect, useState } from "react";
+import { addTask, listTasks } from "./api";
 import "./style.css";
 
 function TodoApp() {
@@ -7,6 +7,19 @@ function TodoApp() {
   const [errorMessage, setErrorMessage] = useState();
   const [tasks, setTasks] = useState([]);
   const [userId] = useState(1);
+
+  useEffect(() => {
+    fetchTasks();
+  }, [])
+
+  async function fetchTasks() {
+    try {
+      const tasks = await listTasks(userId);
+      setTasks(tasks);
+    } catch(err) {
+      setErrorMessage(err);
+    }
+  }
 
   function isAddButtonDisabled() {
     return inputTask === "";
@@ -27,7 +40,7 @@ function TodoApp() {
   }
 
   function renderTasks() {
-    return tasks.map((task) => <div>{task.name}</div>);
+    return tasks.map((task) => <li>{task.name}</li>);
   }
 
   return (
@@ -41,7 +54,8 @@ function TodoApp() {
         Add Task
       </button>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
-      <div className="task-list">{renderTasks()}</div>
+      <div>Task List</div>
+      <ul className="task-list">{renderTasks()}</ul>
     </div>
   );
 }
