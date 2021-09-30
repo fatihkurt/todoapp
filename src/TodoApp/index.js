@@ -40,7 +40,7 @@ function TodoApp() {
   }
 
   function renderTasks() {
-    return tasks.map((task) => <li>{task.name}</li>);
+    return tasks.map((task, idx) => <li key={idx}>{task.name}</li>);
   }
 
   return (
@@ -55,7 +55,7 @@ function TodoApp() {
       </button>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
       <div>Task List</div>
-      <ul className="task-list">{renderTasks()}</ul>
+      <ul data-testid="list">{renderTasks()}</ul>
     </div>
   );
 }
