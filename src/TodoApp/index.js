@@ -34,6 +34,7 @@ function TodoApp() {
       const task = { userId, name: inputTask };
       const addedTask = await addTask(task);
       setTasks([ addedTask, ...tasks ]);
+      setInputTask('');
     } catch(err) {
       setErrorMessage(err);
     }
