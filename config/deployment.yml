@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: web-app
+  template:
+    metadata:
+      labels:
+        name: web-app
+    spec:
+      containers:
+      - name: application
+        image: fthkurt/web-app
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 3000
+        env:
+          - name: API_HOST
+            value: http://144.126.244.239/api
+          

@@ -1,21 +1,19 @@
-FROM node:14-alpine AS builder
+# pull official base image
+FROM node:lts-alpine
 
+# set working directory
 WORKDIR /app
 
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install app dependencies
 COPY package.json ./
-
 COPY yarn.lock ./
+RUN yarn
 
-RUN yarn install --frozen-lockfile
+# add app
+COPY . ./
 
-COPY . .
-
-#### Dev Section
-# EXPOSE 3000
-# CMD ["npm", "start"]
-
-#### Prod Section
-RUN yarn build
-FROM nginx:1.19-alpine AS server
-COPY ./etc/nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder ./app/build /usr/share/nginx/html
+# start app
+CMD ["yarn", "start"]
