@@ -1,5 +1,4 @@
 let baseUrl = process.env.API_HOST;
-console.log('baseUrl', baseUrl)
 
 // TODO fix
 if (!baseUrl) {
@@ -29,7 +28,6 @@ export async function addTask(task) {
 }
 
 export async function listTasks(userId) {
-  console.log('listTask > baseUrl', baseUrl)
   const requestOptions = {
     method: "GET",
     headers: { "Content-Type": "application/json" },
