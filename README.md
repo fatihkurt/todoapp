@@ -6,10 +6,6 @@
 
 ``yarn test`` to run integration tests.
 
----
+``yarn test:cdc`` to test cdc tests.
 
-### TODO
-
-* Fix tests
-* Add fancy features
-* Style
+``yarn test:cdc-publish`` to publish cdc to pact.io.
